@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asraful Islam Redwan | Mobile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap');
+
+        :root {
+            --accent: #6366f1;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.4);
+            --border: rgba(255, 255, 255, 0.06);
+            --text-p: #f8fafc;
+            --text-s: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-p);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { animation: fadeInUp 0.8s ease-out forwards; }
+
+        .container { padding: 40px 20px; text-align: left; }
+
+        /* --- MOBILE NAVIGATION (Bottom Dock) --- */
+        nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        nav a {
+            color: var(--text-s);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        nav a.active {
+            color: #fff;
+            background: var(--accent);
+        }
+
+        /* --- HEADER --- */
+        .brand-logo {
+            width: 70px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 15px; }
+        .gradient { background: linear-gradient(135deg, #fff 0%, #6366f1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-desc { color: var(--text-s); font-size: 1rem; margin-bottom: 30px; line-height: 1.5; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 50px; }
+
+        .action-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-p);
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* --- CARDS --- */
+        h2.section-title { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
+        
+        .premium-card {
+            background: var(--card-bg); 
+            border: 1px solid var(--border);
+            border-radius: 20px; 
+            padding: 30px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .premium-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+        .premium-card p { font-size: 0.95rem; color: var(--text-s); line-height: 1.5; }
+
+        /* Admin/Edit UI */
+        #loginIcon { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0.5; }
+        
+        #editToolbar {
+            position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+            background: #0f172a; border: 1px solid var(--accent); padding: 10px; border-radius: 15px;
+            display: none; flex-wrap: wrap; justify-content: center; gap: 8px; z-index: 9999; width: 90%;
+        }
+        .tool-btn { background: rgba(255,255,255,0.05); border: none; color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 0.7rem; }
+        .save-btn { background: var(--accent) !important; }
+
+        #loginModal { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.98); display: none; align-items: center; justify-content: center; z-index: 10001; }
+        .modal-content { width: 85%; background: #0f172a; padding: 30px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+        input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 14px; border-radius: 10px; color: white; margin-bottom: 15px; }
+
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContentMobile">
+    <div id="loginIcon">⚙️</div>
+
+    <header class="reveal">
+        <img src="logo.png" alt="Logo" class="brand-logo" onclick="navigateTo('home')">
+        <h1 data-editable><span class="gradient">Asraful Islam Redwan</span></h1>
+        <p class="hero-desc" data-editable>Driven by curiosity, building skills in programming and technology to make a difference.</p>
+        
+        <div class="btn-group">
+            <button onclick="navigateTo('article')" class="action-btn">Articles</button>
+            <button onclick="navigateTo('projects')" class="action-btn">Projects</button>
+        </div>
+    </header>
+
+    <nav>
+        <a onclick="navigateTo('home')" id="nav-home" class="active">Home</a>
+        <a onclick="navigateTo('article')" id="nav-article">Articles</a>
+        <a onclick="navigateTo('goal')" id="nav-goal">Goals</a>
+        <a onclick="navigateTo('projects')" id="nav-projects">Works</a>
+    </nav>
+
+    <section id="view-home" class="page-view active">
+        <h2 class="section-title">Core Expertise</h2>
+        <div id="skillsGrid">
+            <div class="premium-card" data-editable>
+                <h3>Competitive Programmer</h3>
+                <p>Solving complex algorithmic challenges efficiently.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-article" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Home</a>
+        <h1><span class="gradient">Articles</span></h1>
+        <div id="articlesGrid"></div>
+    </section>
+
+    <section id="view-goal" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Home</a>
+        <h1><span class="gradient">Goals</span></h1>
+        <div id="goalsGrid"></div>
+    </section>
+
+    <section id="view-projects" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Home</a>
+        <h1><span class="gradient">Projects</span></h1>
+        <div id="projectsGrid"></div>
+    </section>
+
+    <div id="loginModal">
+        <div class="modal-content">
+            <h2>Access Key</h2><br>
+            <input type="text" id="uidInput" placeholder="ID">
+            <input type="password" id="passInput" placeholder="Key">
+            <button class="tool-btn save-btn" style="width:100%" id="loginBtn">Initialize</button>
+        </div>
+    </div>
+
+    <div id="editToolbar">
+        <button class="tool-btn" id="addSkillBtn">+ Skill</button>
+        <button class="tool-btn" id="addProjectBtn">+ Project</button>
+        <button class="tool-btn save-btn" id="saveBtn">Save All</button>
+        <button class="tool-btn" id="logoutBtn">Lock</button>
+    </div>
+</div>
+
+<script>
+    function navigateTo(pageId) {
+        document.querySelectorAll('.page-view').forEach(view => {
+            view.classList.remove('active');
+            view.style.display = 'none';
+        });
+        const target = document.getElementById('view-' + pageId);
+        if(target) {
+            target.style.display = 'block';
+            setTimeout(() => target.classList.add('active'), 10);
+        }
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const activeNav = document.getElementById('nav-' + pageId);
+        if(activeNav) activeNav.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    document.getElementById('loginIcon').onclick = () => document.getElementById('loginModal').style.display='flex';
+
+    document.getElementById('loginBtn').onclick = () => {
+        if(document.getElementById('uidInput').value === '1001' && document.getElementById('passInput').value === 'air') {
+            localStorage.setItem('admin_verified', 'true');
+            location.reload();
+        }
+    };
+
+    if(localStorage.getItem('admin_verified') === 'true') {
+        document.getElementById('editToolbar').style.display = 'flex';
+        document.querySelectorAll('[data-editable]').forEach(el => {
+            el.contentEditable = "true";
+            el.style.border = "1px dashed var(--accent)";
+        });
+    }
+
+    document.getElementById('saveBtn').onclick = () => {
+        localStorage.setItem('asraful_mobile_content', document.getElementById('mainContentMobile').innerHTML);
+        alert('Mobile Version Saved!');
+    };
+
+    document.getElementById('logoutBtn').onclick = () => {
+        localStorage.removeItem('admin_verified');
+        location.reload();
+    };
+
+    window.onload = () => {
+        const saved = localStorage.getItem('asraful_mobile_content');
+        if(saved) {
+            document.getElementById('mainContentMobile').innerHTML = saved;
+            if(localStorage.getItem('admin_verified') === 'true') {
+                document.querySelectorAll('[data-editable]').forEach(el => el.contentEditable = "true");
+            }
+        }
+    };
+</script>
+
+</body>
+</html>
