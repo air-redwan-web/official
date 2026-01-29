@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asraful Islam Redwan</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap');
+
+        :root {
+            --accent: #6366f1;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.4);
+            --border: rgba(255, 255, 255, 0.06);
+            --text-p: #f8fafc;
+            --text-s: #94a3b8;
+            --official: #22c55e;
+            --unofficial: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-p);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        /* Mouse Follower Glow */
+        #cursor-glow {
+            position: fixed; top: 0; left: 0; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: -1;
+            transform: translate(-50%, -50%); transition: opacity 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .reveal { animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 60px 50px; position: relative; }
+
+        /* Navigation Menu - Far Right */
+        nav {
+            position: absolute;
+            top: 60px;
+            right: 50px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            padding: 6px;
+            border-radius: 100px;
+            display: flex;
+            gap: 5px;
+        }
+
+        nav a {
+            color: var(--text-s);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 22px;
+            border-radius: 50px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .brand-logo {
+            width: 85px;
+            height: auto;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .brand-logo:hover { transform: scale(1.1) rotate(-3deg); }
+        
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em; margin-left: -4px; }
+        .gradient { background: linear-gradient(135deg, #fff 0%, #6366f1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-desc { color: var(--text-s); font-size: 1.15rem; max-width: 650px; margin-bottom: 35px; line-height: 1.6; }
+
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 100px; }
+
+        .action-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-p);
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        h2.section-title { font-size: 0.8rem; text-transform: uppercase; color: var(--accent); letter-spacing: 3px; margin-bottom: 30px; font-weight: 700; }
+
+        .grid { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+        
+        .premium-card {
+            background: var(--card-bg); 
+            border: 1px solid var(--border);
+            border-radius: 24px; 
+            padding: 45px;
+            transition: 0.4s;
+            backdrop-filter: blur(5px);
+            width: 100%;
+            max-width: 900px;
+            text-align: left;
+        }
+        .premium-card:hover { border-color: var(--accent); background: rgba(17, 24, 39, 0.6); }
+        .premium-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; }
+        .premium-card p { font-size: 1.1rem; color: var(--text-s); line-height: 1.6; }
+
+        /* Gallery Specific Styles */
+        .gallery-filters { display: flex; gap: 15px; margin-bottom: 40px; }
+        .filter-chip { 
+            padding: 8px 20px; border-radius: 8px; font-size: 0.8rem; 
+            font-weight: 700; cursor: pointer; text-transform: uppercase; 
+            transition: 0.3s; border: 1px solid transparent;
+        }
+        .filter-official { background: var(--official); color: #000; }
+        .filter-unofficial { background: var(--unofficial); color: #000; }
+        .filter-all { background: var(--card-bg); color: #fff; border: 1px solid var(--border); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .gallery-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .gallery-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .img-container { width: 100%; height: 250px; background: #111; position: relative; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+        .label-tag {
+            position: absolute; top: 15px; left: 15px; padding: 4px 12px;
+            border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+        }
+        .tag-official { background: var(--official); color: #000; }
+        .tag-unofficial { background: var(--unofficial); color: #000; }
+        
+        .gallery-info { padding: 20px; }
+        .gallery-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .gallery-info p { font-size: 0.9rem; color: var(--text-s); line-height: 1.5; margin-bottom: 12px; }
+        .gallery-date { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+
+        #loginIcon {
+            position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; 
+            border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; opacity: 0.4;
+        }
+
+        #editToolbar {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px);
+            border: 1px solid var(--accent); padding: 10px 15px; border-radius: 100px;
+            display: none; align-items: center; gap: 10px; z-index: 9999;
+        }
+        .tool-btn {
+            background: transparent; border: none; color: #fff; cursor: pointer;
+            font-size: 0.8rem; padding: 10px 20px; border-radius: 50px; transition: 0.3s;
+        }
+        .save-btn { background: var(--accent) !important; font-weight: 700; }
+
+        #loginModal {
+            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.97);
+            display: none; align-items: center; justify-content: center; z-index: 10001;
+        }
+        .modal-content { 
+            width: 100%; max-width: 350px; text-align: center; 
+            background: #0f172a; padding: 50px; border-radius: 30px;
+            border: 1px solid var(--border);
+        }
+        input {
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 16px; border-radius: 14px; color: white; margin-bottom: 15px; outline: none;
+        }
+        .editing-now { box-shadow: 0 0 0 2px var(--accent); }
+
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+        .back-link { display: inline-block; margin-bottom: 25px; color: var(--accent); text-decoration: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+    </style>
+    <script>
+        // Automatic Redirection to Mobile
+        if (window.innerWidth <= 768) {
+            window.location.href = "mobile.html";
+        }
+    </script>
+</head>
+<body>
+
+<div id="cursor-glow"></div>
+
+<div class="container" id="mainContent">
+    <nav class="reveal">
+        <a onclick="navigateTo('home')" id="nav-home">Home</a>
+        <a onclick="navigateTo('article')" id="nav-article">Article</a>
+        <a onclick="navigateTo('gallery')" id="nav-gallery">Gallery</a>
+        <a onclick="navigateTo('achievements')" id="nav-achievements">Achievements</a>
+        <a onclick="navigateTo('goal')" id="nav-goal">Goal</a>
+        <a onclick="navigateTo('projects')" id="nav-projects">Projects</a>
+    </nav>
+
+    <div id="loginIcon">⚙️</div>
+
+    <div id="loginModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom:30px">Access Key</h2>
+            <input type="text" id="uidInput" placeholder="ID">
+            <input type="password" id="passInput" placeholder="Key">
+            <button class="tool-btn save-btn" style="width:100%" id="loginBtn">Initialize</button>
+        </div>
+    </div>
+
+    <div id="editToolbar">
+        <button class="tool-btn" id="addSkillBtn">+ Skill</button>
+        <button class="tool-btn" id="addArticleBtn">+ Article</button>
+        <button class="tool-btn" id="addPhotoBtn">+ Photo</button>
+        <button class="tool-btn" id="addAchievementBtn">+ Achievement</button>
+        <button class="tool-btn" id="addGoalBtn">+ Goal</button>
+        <button class="tool-btn" id="addProjectBtn">+ Project</button>
+        <button class="tool-btn save-btn" id="saveBtn">Save All</button>
+        <button class="tool-btn" id="logoutBtn">Lock</button>
+    </div>
+
+    <section id="view-home" class="page-view active">
+        <header class="reveal" style="padding-top: 80px;">
+            <div class="header-brand">
+                <img src="logo.png" alt="Logo" class="brand-logo" onclick="navigateTo('home')">
+                <h1 data-editable><span class="gradient">Asraful Islam Redwan</span></h1>
+            </div>
+            
+            <p class="hero-desc" data-editable>Driven by curiosity, building skills in programming and technology to make a difference.</p>
+            
+            <div class="btn-group">
+                <button onclick="navigateTo('article')" class="action-btn">Read Articles</button>
+                <button onclick="navigateTo('gallery')" class="action-btn">View Gallery</button>
+                <button onclick="navigateTo('achievements')" class="action-btn">Achievements</button>
+                <button onclick="navigateTo('goal')" class="action-btn">My Goals</button>
+                <button onclick="navigateTo('projects')" class="action-btn">View Projects</button>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">Core Expertise</h2>
+            <div class="grid" id="skillsGrid">
+                <div class="premium-card" data-editable>
+                    <h3>Competitive Programmer</h3>
+                    <p>Solving complex algorithmic challenges and optimizing code for efficiency and performance.</p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section id="view-gallery" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Back to Home</a>
+        <header>
+            <h1><span class="gradient">Gallery</span></h1>
+            <div class="gallery-filters">
+                <div class="filter-chip filter-all" onclick="filterGallery('all')">All</div>
+                <div class="filter-chip filter-official" onclick="filterGallery('official')">Official</div>
+                <div class="filter-chip filter-unofficial" onclick="filterGallery('unofficial')">Unofficial</div>
+            </div>
+        </header>
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <section id="view-article" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Back to Home</a>
+        <header><h1><span class="gradient">Articles</span></h1></header>
+        <div class="grid" id="articlesGrid"></div>
+    </section>
+
+    <section id="view-achievements" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Back to Home</a>
+        <header><h1><span class="gradient">Achievements</span></h1></header>
+        <div class="grid" id="achievementsGrid"></div>
+    </section>
+
+    <section id="view-goal" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Back to Home</a>
+        <header><h1><span class="gradient">Goals</span></h1></header>
+        <div class="grid" id="goalsGrid"></div>
+    </section>
+
+    <section id="view-projects" class="page-view">
+        <a onclick="navigateTo('home')" class="back-link">← Back to Home</a>
+        <header><h1><span class="gradient">Projects</span></h1></header>
+        <div class="grid" id="projectsGrid"></div>
+    </section>
+</div>
+
+<script>
+    const glow = document.getElementById('cursor-glow');
+    let selectedEl = null;
+
+    function navigateTo(pageId) {
+        document.querySelectorAll('.page-view').forEach(view => {
+            view.classList.remove('active');
+            view.style.display = 'none';
+        });
+        const target = document.getElementById('view-' + pageId);
+        if(target) {
+            target.style.display = 'block';
+            setTimeout(() => target.classList.add('active'), 10);
+        }
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const activeNav = document.getElementById('nav-' + pageId);
+        if(activeNav) activeNav.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function filterGallery(type) {
+        const cards = document.querySelectorAll('.gallery-card');
+        cards.forEach(card => {
+            if(type === 'all' || card.getAttribute('data-type') === type) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+    });
+
+    document.getElementById('loginIcon').onclick = () => document.getElementById('loginModal').style.display='flex';
+
+    window.onclick = function(event) {
+        let modal = document.getElementById('loginModal');
+        if (event.target == modal) modal.style.display = "none";
+    }
+
+    document.getElementById('loginBtn').onclick = () => {
+        if(document.getElementById('uidInput').value === '1001' && document.getElementById('passInput').value === 'air') {
+            localStorage.setItem('admin_verified', 'true');
+            location.reload();
+        }
+    };
+
+    function initEditability(el) {
+        el.contentEditable = "true";
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(selectedEl) selectedEl.classList.remove('editing-now');
+            selectedEl = el;
+            selectedEl.classList.add('editing-now');
+        });
+    }
+
+    function initImgEditing(img) {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(localStorage.getItem('admin_verified') === 'true') {
+                let newSrc = prompt("Enter Image URL:", img.src);
+                if(newSrc) img.src = newSrc;
+            }
+        });
+    }
+
+    if(localStorage.getItem('admin_verified') === 'true') {
+        document.getElementById('editToolbar').style.display = 'flex';
+        document.querySelectorAll('[data-editable]').forEach(initEditability);
+        document.querySelectorAll('.img-container img').forEach(initImgEditing);
+    }
+
+    function createCard(gridId, title, body) {
+        const card = document.createElement('div');
+        card.className = 'premium-card';
+        card.innerHTML = `<h3 data-editable>${title}</h3><p data-editable>${body}</p>`;
+        document.getElementById(gridId).appendChild(card);
+        initEditability(card);
+    }
+
+    document.getElementById('addSkillBtn').onclick = () => createCard('skillsGrid', 'New Skill', 'Summary');
+    document.getElementById('addArticleBtn').onclick = () => createCard('articlesGrid', 'Title', 'Summary');
+    document.getElementById('addAchievementBtn').onclick = () => createCard('achievementsGrid', 'Award', 'Details');
+    document.getElementById('addGoalBtn').onclick = () => createCard('goalsGrid', 'Goal', 'Target');
+    document.getElementById('addProjectBtn').onclick = () => createCard('projectsGrid', 'Project', 'Stack');
+
+    document.getElementById('addPhotoBtn').onclick = () => {
+        const type = prompt("Type 'official' or 'unofficial':", "official").toLowerCase();
+        const dateStr = new Date().toLocaleString();
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+        card.setAttribute('data-type', type);
+        card.innerHTML = `
+            <div class="img-container">
+                <span class="label-tag tag-${type}">${type}</span>
+                <img src="placeholder.jpg">
+            </div>
+            <div class="gallery-info">
+                <h3 data-editable>Image Title</h3>
+                <p data-editable>Description here...</p>
+                <div class="gallery-date" data-editable>${dateStr}</div>
+            </div>`;
+        document.getElementById('galleryGrid').appendChild(card);
+        initEditability(card.querySelector('h3'));
+        initEditability(card.querySelector('p'));
+        initEditability(card.querySelector('.gallery-date'));
+        initImgEditing(card.querySelector('img'));
+    };
+
+    document.getElementById('saveBtn').onclick = () => {
+        localStorage.setItem('asraful_portfolio_content', document.getElementById('mainContent').innerHTML);
+        alert('Site Updated Successfully.');
+    };
+
+    document.getElementById('logoutBtn').onclick = () => {
+        localStorage.removeItem('admin_verified');
+        location.reload();
+    };
+
+    window.onload = () => {
+        const saved = localStorage.getItem('asraful_portfolio_content');
+        if(saved) {
+            document.getElementById('mainContent').innerHTML = saved;
+            if(localStorage.getItem('admin_verified') === 'true') {
+                document.querySelectorAll('[data-editable]').forEach(initEditability);
+                document.querySelectorAll('.img-container img').forEach(initImgEditing);
+            }
+        }
+        document.getElementById('nav-home').classList.add('active');
+    };
+</script>
+
+</body>
+</html>
