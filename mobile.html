@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asraful Islam Redwan | Mobile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap');
+
+        :root {
+            --accent: #6366f1;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.4);
+            --border: rgba(255, 255, 255, 0.06);
+            --text-p: #f8fafc;
+            --text-s: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-p);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { animation: fadeInUp 0.8s ease-out forwards; }
+
+        .container { padding: 40px 20px; }
+
+        /* --- MOBILE NAVIGATION --- */
+        nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        nav a {
+            color: var(--text-s);
+            text-decoration: none;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 10px 12px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        nav a.active {
+            color: #fff;
+            background: var(--accent);
+        }
+
+        /* --- HEADER & TITLES --- */
+        .brand-logo { width: 60px; height: auto; margin-bottom: 20px; border-radius: 12px; }
+        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 15px; line-height: 1.1; }
+        .gradient { background: linear-gradient(135deg, #fff 0%, #6366f1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { color: var(--text-s); font-size: 0.95rem; margin-bottom: 30px; line-height: 1.6; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+        .action-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-p);
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        /* --- SECTIONS --- */
+        .page-view { display: none; animation: fadeInUp 0.5s ease; }
+        .page-view.active { display: block; }
+        h2.section-title { font-size: 0.7rem; text-transform: uppercase; color: var(--accent); letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
+        
+        .premium-card {
+            background: var(--card-bg); 
+            border: 1px solid var(--border);
+            border-radius: 20px; 
+            padding: 25px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .premium-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .premium-card p { font-size: 0.9rem; color: var(--text-s); line-height: 1.5; }
+
+        /* --- CONTACT SECTION --- */
+        .contact-method {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .email-pill {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .email-pill span { font-size: 0.85rem; font-weight: 500; color: var(--text-p); }
+        .copy-trigger {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .gallery-item img { width: 100%; height: 220px; object-fit: cover; }
+        
+        .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 700; }
+
+        /* --- ADMIN UI --- */
+        #loginIcon { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; z-index: 1001; }
+        #editToolbar {
+            position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
+            background: #0f172a; border: 1px solid var(--accent); padding: 12px; border-radius: 15px;
+            display: none; flex-wrap: wrap; justify-content: center; gap: 10px; z-index: 2000; width: 90%;
+        }
+        .tool-btn { background: rgba(255,255,255,0.05); border: none; color: #fff; padding: 10px 15px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
+        .save-btn { background: var(--accent) !important; }
+    </style>
+</head>
+<body>
+
+<div id="mainContentMobile">
+    <div id="loginIcon">⚙️</div>
+
+    <div class="container">
+        <header id="view-home" class="page-view active reveal">
+            <img src="logo.png" alt="Logo" class="brand-logo">
+            <h1 data-editable><span class="gradient">Asraful Islam Redwan</span></h1>
+            <p class="hero-desc" data-editable>Driven by curiosity, building skills in programming and technology to make a difference.</p>
+            
+            <div class="btn-group">
+                <button onclick="navigateTo('projects')" class="action-btn" style="background: var(--accent); border-color: var(--accent);">View My Works</button>
+                <button onclick="navigateTo('contact')" class="action-btn">Contact Me</button>
+            </div>
+
+            <h2 class="section-title">Quick About</h2>
+            <div class="premium-card" data-editable>
+                <h3>Competitive Programmer</h3>
+                <p>Solving complex algorithmic challenges efficiently and building logical solutions.</p>
+            </div>
+        </header>
+
+        <section id="view-projects" class="page-view">
+            <a onclick="navigateTo('home')" class="back-link">← Back</a>
+            <h1><span class="gradient">Recent Works</span></h1>
+            <div id="projectsGrid">
+                </div>
+        </section>
+
+        <section id="view-gallery" class="page-view">
+            <a onclick="navigateTo('home')" class="back-link">← Back</a>
+            <h1><span class="gradient">Gallery</span></h1>
+            <div id="mobileGalleryGrid" style="margin-top: 20px;">
+                <p style="color: var(--text-s); font-size: 0.9rem;">Syncing from desktop...</p>
+            </div>
+        </section>
+
+        <section id="view-article" class="page-view">
+            <a onclick="navigateTo('home')" class="back-link">← Back</a>
+            <h1><span class="gradient">Articles</span></h1>
+            <div id="articlesGrid"></div>
+        </section>
+
+        <section id="view-contact" class="page-view">
+            <a onclick="navigateTo('home')" class="back-link">← Back</a>
+            <h1><span class="gradient">Let's Connect</span></h1>
+            <div class="premium-card">
+                <h3>Get in Touch</h3>
+                <p>I'm always open to discussing new projects or creative opportunities.</p>
+                
+                <div class="contact-method">
+                    <div class="email-pill">
+                        <span id="myEmail">inbox.air01@gmail.com</span>
+                        <button class="copy-trigger" onclick="copyEmail()">Copy</button>
+                    </div>
+                    <a href="mailto:inbox.air01@gmail.com" class="action-btn" style="background: var(--accent); margin-top: 10px;">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <nav>
+        <a onclick="navigateTo('home')" id="nav-home" class="active">Home</a>
+        <a onclick="navigateTo('projects')" id="nav-projects">Works</a>
+        <a onclick="navigateTo('gallery')" id="nav-gallery">Gallery</a>
+        <a onclick="navigateTo('contact')" id="nav-contact">Contact</a>
+    </nav>
+
+    <div id="editToolbar">
+        <button class="tool-btn" id="addProjectBtn">+ Project</button>
+        <button class="tool-btn save-btn" id="saveBtn">Save Mobile View</button>
+        <button class="tool-btn" id="logoutBtn">Logout</button>
+    </div>
+</div>
+
+<script>
+    // Navigation Logic
+    function navigateTo(pageId) {
+        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        
+        const target = document.getElementById('view-' + pageId);
+        if(target) target.classList.add('active');
+        
+        const navTarget = document.getElementById('nav-' + pageId);
+        if(navTarget) navTarget.classList.add('active');
+        
+        window.scrollTo(0,0);
+    }
+
+    // Email Copy Logic
+    function copyEmail() {
+        const email = "inbox.air01@gmail.com";
+        navigator.clipboard.writeText(email);
+        const btn = document.querySelector('.copy-trigger');
+        btn.innerText = "Copied!";
+        btn.style.background = "#22c55e";
+        setTimeout(() => {
+            btn.innerText = "Copy";
+            btn.style.background = "var(--accent)";
+        }, 2000);
+    }
+
+    // Admin Functionality
+    document.getElementById('loginIcon').onclick = () => {
+        const id = prompt("Admin ID:");
+        const pass = prompt("Access Key:");
+        if(id === '1001' && pass === 'air') {
+            localStorage.setItem('admin_verified', 'true');
+            location.reload();
+        }
+    };
+
+    if(localStorage.getItem('admin_verified') === 'true') {
+        document.getElementById('editToolbar').style.display = 'flex';
+        document.querySelectorAll('[data-editable]').forEach(el => {
+            el.contentEditable = "true";
+            el.style.outline = "1px dashed var(--accent)";
+        });
+    }
+
+    document.getElementById('saveBtn').onclick = () => {
+        localStorage.setItem('asraful_mobile_content', document.getElementById('mainContentMobile').innerHTML);
+        alert("Mobile version layout saved!");
+    };
+
+    document.getElementById('logoutBtn').onclick = () => {
+        localStorage.removeItem('admin_verified');
+        location.reload();
+    };
+
+    // Load Data & Sync Gallery from Desktop
+    window.onload = () => {
+        const savedLayout = localStorage.getItem('asraful_mobile_content');
+        if(savedLayout) {
+            document.getElementById('mainContentMobile').innerHTML = savedLayout;
+        }
+
+        // Sync Gallery Images from Desktop Storage
+        const desktopContent = localStorage.getItem('asraful_portfolio_content');
+        if(desktopContent) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(desktopContent, 'text/html');
+            const desktopCards = doc.querySelectorAll('.gallery-card');
+            const mobileGrid = document.getElementById('mobileGalleryGrid');
+            
+            if(desktopCards.length > 0 && mobileGrid) {
+                mobileGrid.innerHTML = ""; // Clear loader
+                desktopCards.forEach(card => {
+                    const img = card.querySelector('img').src;
+                    const title = card.querySelector('h3').innerText;
+                    mobileGrid.innerHTML += `
+                        <div class="gallery-item">
+                            <img src="${img}">
+                            <div style="padding:15px"><h3>${title}</h3></div>
+                        </div>
+                    `;
+                });
+            }
+        }
+    };
+</script>
+
+</body>
+</html>
