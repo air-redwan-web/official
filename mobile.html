@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asraful Islam Redwan | Mobile</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap');
+
+        :root {
+            --accent: #6366f1;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-p: #f8fafc;
+            --text-s: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-p);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Mobile Background Glow */
+        .mobile-glow {
+            position: fixed; top: 0; left: 50%; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            transform: translate(-50%, -50%); z-index: -1; pointer-events: none;
+        }
+
+        .container { padding: 25px 20px 100px 20px; }
+
+        /* Bottom Tab Navigation for Mobile */
+        nav {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 8px; border-radius: 20px;
+            display: flex; justify-content: space-around;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        nav a {
+            color: var(--text-s); text-decoration: none; font-size: 0.7rem;
+            font-weight: 600; padding: 10px; border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            transition: 0.3s;
+        }
+
+        nav a.active { color: #fff; background: rgba(255, 255, 255, 0.1); }
+
+        /* Typography */
+        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+        .gradient { background: linear-gradient(135deg, #fff 0%, #6366f1 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-desc { color: var(--text-s); font-size: 1rem; margin-bottom: 25px; }
+
+        .header-brand { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; margin-top: 20px;}
+        .brand-logo { width: 50px; height: auto; border-radius: 12px; }
+
+        /* Cards */
+        .premium-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 20px; padding: 25px; margin-bottom: 15px;
+        }
+        .premium-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+
+        /* Action Buttons */
+        .btn-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 40px; }
+        .action-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            color: var(--text-p); padding: 12px; border-radius: 12px;
+            font-size: 0.85rem; font-weight: 600; text-align: center;
+        }
+
+        /* Gallery Mobile */
+        .gallery-filters { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .filter-chip { 
+            padding: 8px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; 
+            white-space: nowrap; border: 1px solid var(--border); color: var(--text-s);
+        }
+        .filter-chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .gallery-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); }
+        .img-container { width: 100%; height: 200px; position: relative; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .label-tag { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 6px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
+        .tag-official { background: #00e5ff; color: #000; }
+        .tag-unofficial { background: #fff; color: #000; }
+        .gallery-info { padding: 15px; }
+
+        /* Admin UI Mobile */
+        #loginIcon { position: fixed; top: 20px; right: 20px; font-size: 1.2rem; z-index: 1001; opacity: 0.5; }
+        #editToolbar {
+            position: fixed; top: 0; left: 0; width: 100%; background: #0f172a; 
+            display: none; flex-wrap: wrap; gap: 5px; padding: 10px; z-index: 2000; border-bottom: 1px solid var(--accent);
+        }
+        .tool-btn { font-size: 0.7rem; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); background: #1e293b; color: white; }
+
+        #loginModal {
+            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.98);
+            display: none; align-items: center; justify-content: center; z-index: 10001; padding: 20px;
+        }
+        .modal-content { width: 100%; background: #0f172a; padding: 30px; border-radius: 20px; border: 1px solid var(--border); }
+        input { width: 100%; background: #1e293b; border: 1px solid var(--border); padding: 14px; border-radius: 12px; color: white; margin-bottom: 10px; }
+
+        /* Sections */
+        .page-view { display: none; animation: fadeIn 0.4s ease; }
+        .page-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Contact Mobile */
+        .email-box {
+            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px;
+            display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;
+        }
+        .email-text { color: var(--accent); font-weight: 700; text-decoration: none; word-break: break-all; }
+        .copy-btn-new { width: 100%; background: var(--accent); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+<div class="mobile-glow"></div>
+
+<div id="loginIcon">⚙️</div>
+
+<nav id="mobileNav">
+    <a onclick="navigateTo('home')" id="nav-home"><span>🏠</span>Home</a>
+    <a onclick="navigateTo('gallery')" id="nav-gallery"><span>🖼️</span>Gallery</a>
+    <a onclick="navigateTo('projects')" id="nav-projects"><span>💻</span>Projects</a>
+    <a onclick="navigateTo('contact')" id="nav-contact"><span>📧</span>Contact</a>
+</nav>
+
+<div id="editToolbar">
+    <button class="tool-btn" id="addPhotoBtn">+ Photo</button>
+    <button class="tool-btn" id="addProjectBtn">+ Project</button>
+    <button class="tool-btn" id="saveBtn" style="background:var(--accent)">Save</button>
+    <button class="tool-btn" id="logoutBtn">Lock</button>
+</div>
+
+<div id="loginModal">
+    <div class="modal-content">
+        <h2 style="margin-bottom:20px; text-align: center;">Admin Access</h2>
+        <input type="text" id="uidInput" placeholder="ID">
+        <input type="password" id="passInput" placeholder="Key">
+        <button class="copy-btn-new" id="loginBtn">Initialize</button>
+        <button style="background:transparent; color: var(--text-s); border:none; margin-top:15px; width:100%" onclick="document.getElementById('loginModal').style.display='none'">Cancel</button>
+    </div>
+</div>
+
+<div class="container" id="mainContent">
+    
+    <section id="view-home" class="page-view active">
+        <div class="header-brand">
+            <img src="logo.png" alt="Logo" class="brand-logo">
+            <h1 data-editable><span class="gradient">Redwan</span></h1>
+        </div>
+        <p class="hero-desc" data-editable>Driven by curiosity, building skills in programming and technology.</p>
+        
+        <div class="btn-stack">
+            <div class="action-btn" onclick="navigateTo('gallery')">Gallery</div>
+            <div class="action-btn" onclick="navigateTo('projects')">Projects</div>
+            <div class="action-btn" onclick="navigateTo('achievements')">Awards</div>
+            <div class="action-btn" onclick="navigateTo('goal')">Goals</div>
+        </div>
+
+        <h2 style="font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 15px;">EXPERTISE</h2>
+        <div id="skillsGrid">
+            <div class="premium-card" data-editable>
+                <h3>Competitive Programmer</h3>
+                <p style="font-size: 0.9rem; color: var(--text-s);">Solving algorithmic challenges and optimizing performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-gallery" class="page-view">
+        <h1><span class="gradient">Gallery</span></h1>
+        <div class="gallery-filters">
+            <div class="filter-chip active" onclick="filterGallery('all', this)">All</div>
+            <div class="filter-chip" onclick="filterGallery('official', this)">Official</div>
+            <div class="filter-chip" onclick="filterGallery('unofficial', this)">Unofficial</div>
+        </div>
+        <div id="galleryGrid">
+            <div class="gallery-card" data-type="official">
+                <div class="img-container">
+                    <span class="label-tag tag-official">Official</span>
+                    <img src="logo.png">
+                </div>
+                <div class="gallery-info">
+                    <h3 data-editable>Official Logo</h3>
+                    <p data-editable style="font-size: 0.85rem; color: var(--text-s);">Designed based on coding concepts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-projects" class="page-view">
+        <h1><span class="gradient">Projects</span></h1>
+        <div id="projectsGrid">
+            <div class="premium-card">
+                <h3>Project Alpha</h3>
+                <p style="color: var(--text-s); font-size: 0.9rem;">Web-based automation tool built with JS.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-contact" class="page-view">
+        <h1><span class="gradient">Contact</span></h1>
+        <div class="premium-card">
+            <h3>Email Me</h3>
+            <div class="email-box">
+                <a href="mailto:inbox.air01@gmail.com" class="email-text" id="emailVal">inbox.air01@gmail.com</a>
+                <button class="copy-btn-new" onclick="copyEmail()">Copy Email</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-achievements" class="page-view"><h1><span class="gradient">Awards</span></h1><div id="achievementsGrid"></div></section>
+    <section id="view-goal" class="page-view"><h1><span class="gradient">Goals</span></h1><div id="goalsGrid"></div></section>
+
+</div>
+
+<script>
+    function navigateTo(pageId) {
+        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById('view-' + pageId);
+        if(target) target.classList.add('active');
+        
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const navItem = document.getElementById('nav-' + pageId);
+        if(navItem) navItem.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function filterGallery(type, btn) {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.gallery-card').forEach(card => {
+            card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
+        });
+    }
+
+    function copyEmail() {
+        const email = "inbox.air01@gmail.com";
+        navigator.clipboard.writeText(email).then(() => {
+            const btn = document.querySelector('.copy-btn-new');
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy Email', 2000);
+        });
+    }
+
+    // Admin Logic
+    document.getElementById('loginIcon').onclick = () => document.getElementById('loginModal').style.display='flex';
+    document.getElementById('loginBtn').onclick = () => {
+        if(document.getElementById('uidInput').value === '1001' && document.getElementById('passInput').value === 'air') {
+            localStorage.setItem('admin_verified', 'true');
+            location.reload();
+        }
+    };
+
+    if(localStorage.getItem('admin_verified') === 'true') {
+        document.getElementById('editToolbar').style.display = 'flex';
+        document.querySelectorAll('[data-editable]').forEach(el => el.contentEditable = "true");
+    }
+
+    document.getElementById('logoutBtn').onclick = () => {
+        localStorage.removeItem('admin_verified');
+        location.reload();
+    };
+
+    document.getElementById('saveBtn').onclick = () => {
+        localStorage.setItem('mobile_portfolio_content', document.getElementById('mainContent').innerHTML);
+        alert('Mobile site saved locally.');
+    };
+
+    window.onload = () => {
+        const saved = localStorage.getItem('mobile_portfolio_content');
+        if(saved) document.getElementById('mainContent').innerHTML = saved;
+        if(localStorage.getItem('admin_verified') === 'true') {
+            document.querySelectorAll('[data-editable]').forEach(el => el.contentEditable = "true");
+        }
+    };
+</script>
+
+</body>
+</html>
