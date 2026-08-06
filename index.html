@@ -224,13 +224,13 @@
         .gallery-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         
         .img-container { width: 100%; height: 280px; background: #0a0a0a; position: relative; overflow: hidden; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .img-container img, .img-container iframe { width: 100%; height: 100%; object-fit: cover; border: none; transition: 0.5s; }
         .gallery-card:hover img { transform: scale(1.05); }
 
         .label-tag {
             position: absolute; top: 20px; left: 20px; padding: 5px 14px;
             border-radius: 8px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1px; z-index: 10;
         }
         .tag-official { background: #00e5ff; color: #000; }
         .tag-unofficial { background: #fff; color: #000; }
@@ -238,7 +238,22 @@
         .gallery-info { padding: 25px; }
         .gallery-info h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
         .gallery-info p { font-size: 0.95rem; color: var(--text-s); line-height: 1.6; margin-bottom: 15px; }
-        .gallery-date { font-size: 0.8rem; color: var(--accent); font-weight: 700; opacity: 0.8; }
+        .gallery-date { font-size: 0.8rem; color: var(--accent); font-weight: 700; opacity: 0.8; margin-bottom: 15px; }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .download-btn:hover { background: #4f46e5; }
 
         /* Version Info Button */
         #infoBtnContainer {
@@ -324,7 +339,6 @@
             gap: 15px;
         }
         
-        /* Updated Email Text with Purple Glow Effect */
         .email-text { 
             font-weight: 600; 
             color: #fff; 
@@ -335,8 +349,8 @@
         }
 
         .email-text:hover { 
-            color: #a855f7; /* Beguni Color */
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(168, 85, 247, 0.4); /* Glow Effect */
+            color: #a855f7; 
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(168, 85, 247, 0.4); 
         }
         
         .copy-btn-new {
@@ -446,6 +460,35 @@
         </div>
 
         <div class="gallery-grid" id="galleryGrid">
+            <!-- PDF Document Card -->
+            <div class="gallery-card" data-type="official">
+                <div class="img-container">
+                    <span class="label-tag tag-official">Official PDF</span>
+                    <iframe src="12AdmissionReceipt.pdf"></iframe>
+                </div>
+                <div class="gallery-info">
+                    <h3 data-editable>Admission Receipt</h3>
+                    <p data-editable>Official Class 12 Admission Receipt document.</p>
+                    <div class="gallery-date" data-editable>Document</div>
+                    <a href="12AdmissionReceipt.pdf" download="12AdmissionReceipt.pdf" class="download-btn">📄 Download PDF</a>
+                </div>
+            </div>
+
+            <div class="gallery-card" data-type="official">
+                <div class="img-container">
+                    <span class="label-tag tag-official">Official</span>
+                    <a href="https://i.postimg.cc/mZJtHph5/sa-hara-o-iphata-ra-ra-samaya-sa-ca-(1).jpg" target="_blank">
+                        <img src="https://i.postimg.cc/mZJtHph5/sa-hara-o-iphata-ra-ra-samaya-sa-ca-(1).jpg" alt="Ramadan Schedule">
+                    </a>
+                </div>
+                <div class="gallery-info">
+                    <h3 data-editable>Ramadan Time Table 2026</h3>
+                    <p data-editable>The comprehensive schedule for Sehri and Iftar for the holy month of Ramadan.</p>
+                    <div class="gallery-date" data-editable>18 February 2026</div>
+                    <a href="https://i.postimg.cc/mZJtHph5/sa-hara-o-iphata-ra-ra-samaya-sa-ca-(1).jpg" download="Ramadan_Schedule_2026.jpg" class="download-btn">Download Image</a>
+                </div>
+            </div>
+
             <div class="gallery-card" data-type="official">
                 <div class="img-container">
                     <span class="label-tag tag-official">Official</span>
@@ -457,34 +500,6 @@
                     <h3 data-editable>Official Logo</h3>
                     <p data-editable>This is the official logo of Asraful Islam Redwan designed by himself based on coding concepts.</p>
                     <div class="gallery-date" data-editable>29 January 2026 | 11:30 AM</div>
-                </div>
-            </div>
-
-            <div class="gallery-card" data-type="official">
-                <div class="img-container">
-                    <span class="label-tag tag-official">Official</span>
-                    <a href="https://i.postimg.cc/zD69W6Kz/Alor-Poth-Ramadan-Calendar.jpg" download="Alor-Poth-Ramadan-Calendar.jpg" target="_blank">
-                        <img src="https://i.postimg.cc/zD69W6Kz/Alor-Poth-Ramadan-Calendar.jpg" alt="Alor Poth Ramadan Calendar">
-                    </a>
-                </div>
-                <div class="gallery-info">
-                    <h3 data-editable>Alor Poth Ramadan Calendar</h3>
-                    <p data-editable>A comprehensive Ramadan calendar design for spiritual guidance and time management during the holy month.</p>
-                    <div class="gallery-date" data-editable>18 February 2026 | 01:40 PM</div>
-                </div>
-            </div>
-
-            <div class="gallery-card" data-type="official">
-                <div class="img-container">
-                    <span class="label-tag tag-official">Official</span>
-                    <a href="https://i.postimg.cc/QdTN1cHP/Primary-Color-Deep-Emerald-Green-0F3D2E-Secondary-Color-Rich-Islamic-Green-1E6F5C-Accent-Color.png" download="Alor-Poth-Facebook-Post.png" target="_blank">
-                        <img src="https://i.postimg.cc/QdTN1cHP/Primary-Color-Deep-Emerald-Green-0F3D2E-Secondary-Color-Rich-Islamic-Green-1E6F5C-Accent-Color.png" alt="Alor Poth Facebook Post">
-                    </a>
-                </div>
-                <div class="gallery-info">
-                    <h3 data-editable>Alor Poth Facebook Post</h3>
-                    <p data-editable>Official promotional post design for the 'Alor Poth' initiative, featuring a rich Islamic theme and deep emerald color palette.</p>
-                    <div class="gallery-date" data-editable>18 February 2026 | 01:50 PM</div>
                 </div>
             </div>
         </div>
@@ -547,13 +562,11 @@
         const activeNav = document.getElementById('nav-' + pageId);
         if(activeNav) activeNav.classList.add('active');
         
-        // Toggle info button visibility based on home page
         document.getElementById('infoBtnContainer').style.display = (pageId === 'home') ? 'flex' : 'none';
         
         window.scrollTo(0,0);
     }
 
-    // Gallery Filter with Glow
     function filterGallery(type, btn) {
         document.querySelectorAll('.filter-chip').forEach(chip => chip.classList.remove('active'));
         btn.classList.add('active');
@@ -563,7 +576,6 @@
         });
     }
 
-    // Gallery Search
     function searchGallery() {
         const input = document.getElementById('gallerySearch').value.toLowerCase();
         const cards = document.querySelectorAll('.gallery-card');
@@ -597,13 +609,11 @@
         });
     }
 
-    // Global Event Listeners
     document.addEventListener('mousemove', (e) => {
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
 
-    // Info Button Toggle
     const infoBtn = document.getElementById('infoBtn');
     const versionCard = document.getElementById('versionCard');
     infoBtn.onclick = (e) => {
@@ -611,7 +621,6 @@
         versionCard.style.display = (versionCard.style.display === 'block') ? 'none' : 'block';
     };
 
-    // Close Modals and Cards on Outside Click
     window.onclick = (event) => {
         const loginModal = document.getElementById('loginModal');
         const versionCard = document.getElementById('versionCard');
@@ -644,16 +653,36 @@
             if(localStorage.getItem('admin_verified') === 'true') {
                 e.preventDefault();
                 e.stopPropagation();
-                let newSrc = prompt("Enter Image URL:", img.src);
+                let newSrc = prompt("Enter Image/PDF URL:", img.src);
                 if(newSrc) img.src = newSrc;
             }
         });
+    }
+
+    function addNewCard(gridId, titleText, descText) {
+        const grid = document.getElementById(gridId);
+        const card = document.createElement('div');
+        card.className = 'premium-card reveal';
+        card.setAttribute('data-editable', '');
+        card.innerHTML = `
+            <h3 data-editable>${titleText}</h3>
+            <p data-editable>${descText}</p>
+        `;
+        grid.appendChild(card);
+        initEditability(card.querySelector('h3'));
+        initEditability(card.querySelector('p'));
     }
 
     if(localStorage.getItem('admin_verified') === 'true') {
         document.getElementById('editToolbar').style.display = 'flex';
         document.querySelectorAll('[data-editable]').forEach(initEditability);
         document.querySelectorAll('.img-container img').forEach(initImgEditing);
+
+        document.getElementById('addSkillBtn').onclick = () => addNewCard('skillsGrid', 'New Skill Title', 'Describe your expertise here...');
+        document.getElementById('addArticleBtn').onclick = () => addNewCard('articlesGrid', 'New Article Title', 'Start writing your article content...');
+        document.getElementById('addAchievementBtn').onclick = () => addNewCard('achievementsGrid', 'Achievement Title', 'Describe what you achieved...');
+        document.getElementById('addGoalBtn').onclick = () => addNewCard('goalsGrid', 'New Goal', 'What is your next milestone?');
+        document.getElementById('addProjectBtn').onclick = () => addNewCard('projectsGrid', 'Project Name', 'Short description of the project and technologies used.');
     }
 
     document.getElementById('addPhotoBtn').onclick = () => {
